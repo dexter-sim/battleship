@@ -1,0 +1,29 @@
+* {
+    font-size: 40px;
+}
+
+h1, h2, p, div{
+    text-align: center;
+}
+
+#content, #headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.left, .right {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.box {
+    padding: 20px;
+    border: 1px black solid;
+
+}
