@@ -3,17 +3,19 @@ import { Ship } from "./factory";
 function playerSetup(player, left) {
     console.log(left.childNodes[3]);
     const playerBoard = player.gameboard;
-    for (let i = 2; i <= 5; i++){
-        let temp = generateCoordinates(i);
+    playerBoard.allShips = [];
+    const arr = [2, 3, 3, 4 , 5];
+    for (let i = 0; i < arr.length; i++){
+        let temp = generateCoordinates(arr[i]);
         const coordinate = temp[0];
         const horizontal = temp[1];
-        playerBoard.placeShip(i, coordinate, horizontal);
+        playerBoard.placeShip(arr[i], coordinate, horizontal);
     }
     console.log(playerBoard);
 
     function generateCoordinates(len){
-        let x = Math.floor(Math.random() * 8);
-        let y = Math.floor(Math.random() * (8 - len));
+        let x = Math.floor(Math.random() * 10);
+        let y = Math.floor(Math.random() * (10 - len));
         let horizontal = Math.random() > 0.5;
         let flag = true;
         for (let i = y; i < y + len; i++){

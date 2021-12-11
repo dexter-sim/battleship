@@ -4,12 +4,12 @@ function generateBoard(){
     left.textContent = "";
     right.textContent = "";
 
-    for (let i = 0; i < 8; i++){
+    for (let i = 0; i < 10; i++){
         const row1 = document.createElement("div");
         row1.className = "row";
         const row2 = document.createElement("div");
         row2.className = "row";
-        for (let j = 0; j < 8; j++){
+        for (let j = 0; j < 10; j++){
             const box1 = document.createElement("div");
             box1.className = "box";
             const box2 = document.createElement("div");

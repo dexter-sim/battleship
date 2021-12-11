@@ -1,13 +1,25 @@
 * {
-    font-size: 40px;
+    font-size: 20px;
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+#headers {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 h1, h2, p, div{
     text-align: center;
 }
 
-#content, #headers {
+#content {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

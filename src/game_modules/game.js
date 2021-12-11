@@ -17,7 +17,7 @@ function game(player, com){
                     const allSunk = com.gameboard.receiveAttack([i, j]);
                     darkenComColor();
                     if (allSunk){
-                        message.textContent = "You Won";
+                        message.textContent = "You won! All enemy ships sunk.";
                         gameEnd();
                     }
                     box.outerHTML = box.outerHTML;                  
@@ -28,8 +28,8 @@ function game(player, com){
     }
 
     function comAttack(){
-        let x = Math.floor(Math.random() * 8);
-        let y = Math.floor(Math.random() * 8);
+        let x = Math.floor(Math.random() * 10);
+        let y = Math.floor(Math.random() * 10);
         if (player.gameboard.board[x][y].isShot){
             comAttack();
         } else {
@@ -41,7 +41,7 @@ function game(player, com){
             }
             darkenPlayerColor();
             if (playerLost){
-                message.textContent = "You Lost";
+                message.textContent = "You Lost! All your ships sunk.";
                 gameEnd();
             }
         }
