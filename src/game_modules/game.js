@@ -2,7 +2,6 @@ function game(player, com){
     const message = document.getElementById("message");
     const left = document.getElementById("left");
     const right = document.getElementById("right");
-    let turn = 0;
 
     for (let i = 0; i < right.childNodes.length; i++){
         const row = right.childNodes[i];
@@ -10,19 +9,19 @@ function game(player, com){
             const box = row.childNodes[j];
             if (!com.gameboard.board[i][j].isShot){
                 box.addEventListener("click", () => {
-                    message.textContent = "Turn " + ++turn;
                     if (com.gameboard.board[i][j].hasShip !== ""){
-                        box.style.backgroundColor = "green";
+                        box.style.backgroundColor = "lightgreen";
                     } else {
                         box.style.backgroundColor = "red";
                     }
                     const allSunk = com.gameboard.receiveAttack([i, j]);
+                    darkenComColor();
                     if (allSunk){
                         message.textContent = "You Won";
                         gameEnd();
                     }
-                    comAttack();
                     box.outerHTML = box.outerHTML;                  
+                    comAttack();
                 })
             }
         }
@@ -35,10 +34,51 @@ function game(player, com){
             comAttack();
         } else {
             const playerLost = player.gameboard.receiveAttack([x, y]);
-            left.childNodes[x].childNodes[y].style.backgroundColor = "blue";
+            if (player.gameboard.board[x][y].hasShip !== ""){
+                left.childNodes[x].childNodes[y].style.backgroundColor = "lightgreen";
+            } else {
+                left.childNodes[x].childNodes[y].style.backgroundColor = "red";
+            }
+            darkenPlayerColor();
             if (playerLost){
                 message.textContent = "You Lost";
                 gameEnd();
+            }
+        }
+    }
+
+    function darkenComColor() {
+        const arr = com.gameboard.allShips;
+        for (let pos = 0; pos < arr.length; pos++){
+            const ship = arr[pos];
+            if (ship.sunk){
+                for (let i = 0; i < right.childNodes.length; i++){
+                    const row = right.childNodes[i];
+                    for (let j = 0; j < row.childNodes.length; j++){
+                        if (com.gameboard.board[i][j].hasShip === pos){
+                            const box = row.childNodes[j];
+                            box.style.backgroundColor = "green";
+                        }                        
+                    }
+                }
+            }
+        }
+    }
+
+    function darkenPlayerColor() {
+        const arr = player.gameboard.allShips;
+        for (let pos = 0; pos < arr.length; pos++){
+            const ship = arr[pos];
+            if (ship.sunk){
+                for (let i = 0; i < left.childNodes.length; i++){
+                    const row = left.childNodes[i];
+                    for (let j = 0; j < row.childNodes.length; j++){
+                        if (player.gameboard.board[i][j].hasShip === pos){
+                            const box = row.childNodes[j];
+                            box.style.backgroundColor = "green";
+                        }                        
+                    }
+                }
             }
         }
     }

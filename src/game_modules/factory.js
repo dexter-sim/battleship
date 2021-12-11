@@ -60,7 +60,7 @@ class Gameboard {
                 const ship = this.allShips[this.board[row][col].hasShip];
                 ship.hit(coordinates);
                 if (ship.isSunk()){
-                    console.log("ship has sunk");
+                    console.log("ship sunk");
                 }
             }
         }

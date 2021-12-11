@@ -49,6 +49,7 @@ right.id = "right";
 content.appendChild(right);
 
 function mainFunction() {
+    message.textContent = "";
     let player = new Player();
     let com = new Player();
 
