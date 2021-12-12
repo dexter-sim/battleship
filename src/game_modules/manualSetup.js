@@ -17,25 +17,29 @@ function manual(player) {
         displayBoard(player);
     }
 
+    let horizontal = true;
+
     function helper(count){
         removeListeners();
         if (count === arr.length){
             displayBoard(player);
-            message.textContent = "Play";
+            message.textContent = "Press play to begin.";
             play.style.display = "inline";
         } else {
             const length = arr[count];
-            let horizontal = true;
-            left.addEventListener("contextmenu", e => {
+            left.addEventListener("contextmenu", menuFn);
+
+            function menuFn(e) {
                 e.preventDefault();
-                horizontal = !horizontal;
-                removeListeners();
-                if (horizontal){
-                    h();
+                if (horizontal) {
+                    horizontal = false;
                 } else {
-                    v();
+                    horizontal = true;
                 }
-            });
+                removeListeners();
+                left.removeEventListener("contextmenu", menuFn);
+                helper(count);
+            }
             
             function h(){
                 removeListeners();
@@ -56,6 +60,7 @@ function manual(player) {
                                 for (let k = j; k < j + length; k++){
                                     row.childNodes[k].style.backgroundColor = "grey";
                                 }
+                                left.removeEventListener("contextmenu", menuFn);
                                 helper(count + 1);
                             });
                             box.addEventListener("mouseover", () => {
@@ -101,16 +106,22 @@ function manual(player) {
                             });
                             box.addEventListener("click", () => {
                                 playerBoard.placeShip(length, [i, j], horizontal);
-                                for (let k = j; k < j + length; k++){
-                                    row.childNodes[k].style.backgroundColor = "grey";
+                                for (let k = i; k < i + length; k++){
+                                    left.childNodes[k].childNodes[j].style.backgroundColor = "grey";
                                 }
+                                left.removeEventListener("contextmenu", menuFn);
                                 helper(count + 1);
                             });
                         }
                     }
                 }
             }
-            h();
+            
+            if (horizontal){
+                h();
+            } else {
+                v();
+            }
             
         }
     }

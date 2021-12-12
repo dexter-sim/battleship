@@ -2,7 +2,6 @@ function game(player, com){
     const message = document.getElementById("message");
     const left = document.getElementById("left");
     const right = document.getElementById("right");
-    const play = document.getElementById("play");
     gameEnd();
     message.textContent = "Click on the enemy's grid to fire upon their ships.";
 

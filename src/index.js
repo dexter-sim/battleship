@@ -32,7 +32,7 @@ randomizeButton.className = "randomize";
 randomizeButton.textContent = "Randomize";
 randomizeButton.addEventListener("click", () => {
     play.style.display = "inline";
-    mainFunction();
+    autoSetup();
 });
 main.appendChild(randomizeButton);
 
@@ -78,8 +78,8 @@ content.appendChild(right);
 let player = new Player();
 let com = new Player();
 
-function mainFunction() {
-    message.textContent = "Play";
+function autoSetup() {
+    message.textContent = "Press play to begin.";
     player = new Player();
     com = new Player();
 
@@ -90,11 +90,11 @@ function mainFunction() {
 }
 
 function manualSetup() {
-    message.textContent = "Place Your Battleships.";
+    message.textContent = "Place Your Battleships. Right click to rotate ship.";
     player = new Player();
     com = new Player();
-    generateBoard();
 
+    generateBoard();
     manual(player);
     playerSetup(com, right);
     displayBoard(player);
