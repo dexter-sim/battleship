@@ -2,27 +2,32 @@ function game(player, com){
     const message = document.getElementById("message");
     const left = document.getElementById("left");
     const right = document.getElementById("right");
+    const play = document.getElementById("play");
+    gameEnd();
+    message.textContent = "Click on the enemy's grid to fire upon their ships.";
 
     for (let i = 0; i < right.childNodes.length; i++){
         const row = right.childNodes[i];
         for (let j = 0; j < row.childNodes.length; j++){
-            const box = row.childNodes[j];
+            let box = row.childNodes[j];
             if (!com.gameboard.board[i][j].isShot){
-                box.addEventListener("click", () => {
-                    if (com.gameboard.board[i][j].hasShip !== ""){
-                        box.style.backgroundColor = "lightgreen";
-                    } else {
-                        box.style.backgroundColor = "red";
-                    }
-                    const allSunk = com.gameboard.receiveAttack([i, j]);
-                    darkenComColor();
-                    if (allSunk){
-                        message.textContent = "You won! All enemy ships sunk.";
-                        gameEnd();
-                    }
-                    box.outerHTML = box.outerHTML;                  
-                    comAttack();
-                })
+                box.addEventListener("click", helper)
+            }
+
+            function helper(){
+                if (com.gameboard.board[i][j].hasShip !== ""){
+                    box.style.backgroundColor = "lightgreen";
+                } else {
+                    box.style.backgroundColor = "red";
+                }
+                const allSunk = com.gameboard.receiveAttack([i, j]);
+                darkenComColor();
+                if (allSunk){
+                    message.textContent = "You won! All enemy ships sunk.";
+                    gameEnd();
+                }
+                box.removeEventListener("click", helper);
+                comAttack();
             }
         }
     }

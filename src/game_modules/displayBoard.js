@@ -6,6 +6,8 @@ function displayBoard(player){
             const box = row.childNodes[j];
             if (player.gameboard.board[i][j].hasShip !== ""){
                 box.style.backgroundColor = "grey";
+            } else {
+                box.style.backgroundColor = "white";
             }
         }
     }

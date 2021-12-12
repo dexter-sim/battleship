@@ -4,7 +4,7 @@ function playerSetup(player, left) {
     console.log(left.childNodes[3]);
     const playerBoard = player.gameboard;
     playerBoard.allShips = [];
-    const arr = [2, 3, 3, 4 , 5];
+    const arr = [2, 3, 3, 4, 5];
     for (let i = 0; i < arr.length; i++){
         let temp = generateCoordinates(arr[i]);
         const coordinate = temp[0];

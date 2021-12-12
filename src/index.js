@@ -4,6 +4,7 @@ import { generateBoard } from "./game_modules/generateBoard";
 import { Player, Gameboard, Ship } from "./game_modules/factory";
 import { displayBoard } from "./game_modules/displayBoard";
 import { game } from "./game_modules/game";
+import { manual } from "./game_modules/manualSetup";
 
 const main = document.getElementById("main");
 const gametitle = document.createElement("h1");
@@ -25,12 +26,38 @@ content.id = "content";
 content.className = "content";
 main.appendChild(content);
 
+const randomizeButton = document.createElement("button");
+randomizeButton.id = "randomize";
+randomizeButton.className = "randomize";
+randomizeButton.textContent = "Randomize";
+randomizeButton.addEventListener("click", () => {
+    play.style.display = "inline";
+    mainFunction();
+});
+main.appendChild(randomizeButton);
+
 const resetButton = document.createElement("button");
 resetButton.id = "reset";
 resetButton.className = "reset";
 resetButton.textContent = "Reset";
-resetButton.addEventListener("click", mainFunction);
+resetButton.addEventListener("click", () => {
+    play.style.display = "none";
+    randomizeButton.style.display = "inline";
+    manualSetup();
+});
 main.appendChild(resetButton);
+
+const play = document.createElement("button");
+play.id = "play";
+play.className = "play";
+play.textContent = "Play";
+play.style.display = "none";
+main.appendChild(play);
+play.addEventListener("click", () => {
+    play.style.display = "none";
+    randomizeButton.style.display = "none";
+    game(player, com);
+});
 
 const message = document.createElement("p");
 message.id = "message";
@@ -48,16 +75,29 @@ right.className = "right";
 right.id = "right";
 content.appendChild(right);
 
+let player = new Player();
+let com = new Player();
+
 function mainFunction() {
-    message.textContent = "Click on the enemy's grid to fire upon their ships.";
-    let player = new Player();
-    let com = new Player();
+    message.textContent = "Play";
+    player = new Player();
+    com = new Player();
 
     generateBoard();
     playerSetup(player, left);
     playerSetup(com, right);
     displayBoard(player);
-    game(player, com);
 }
 
-mainFunction();
+function manualSetup() {
+    message.textContent = "Place Your Battleships.";
+    player = new Player();
+    com = new Player();
+    generateBoard();
+
+    manual(player);
+    playerSetup(com, right);
+    displayBoard(player);
+}
+
+manualSetup();
