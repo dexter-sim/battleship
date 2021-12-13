@@ -24,7 +24,8 @@ function manual(player) {
         if (count === arr.length){
             displayBoard(player);
             message.textContent = "Press play to begin.";
-            play.style.display = "inline";
+            play.style.cursor = "pointer";
+            play.disabled = false;
         } else {
             const length = arr[count];
             left.addEventListener("contextmenu", menuFn);
@@ -70,7 +71,7 @@ function manual(player) {
                             });
                             box.addEventListener("mouseout", () => {
                                 for (let k = j; k < j + length; k++){
-                                    row.childNodes[k].style.backgroundColor = "white";
+                                    row.childNodes[k].style.backgroundColor = "transparent";
                                 }
                                 displayBoard(player);
                             });
@@ -100,7 +101,7 @@ function manual(player) {
                             });
                             box.addEventListener("mouseout", () => {
                                 for (let k = i; k < i + length; k++){
-                                    left.childNodes[k].childNodes[j].style.backgroundColor = "white";
+                                    left.childNodes[k].childNodes[j].style.backgroundColor = "transparent";
                                 }
                                 displayBoard(player);
                             });

@@ -37,7 +37,6 @@ class Gameboard {
 
     placeShip(length, coordinates, horizontal) {
         const pos = this.allShips.length;
-        console.log(pos);
         const ship = new Ship(length, pos);
         this.allShips.push(ship);
         let row = coordinates[0];

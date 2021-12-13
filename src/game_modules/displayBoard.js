@@ -7,7 +7,7 @@ function displayBoard(player){
             if (player.gameboard.board[i][j].hasShip !== ""){
                 box.style.backgroundColor = "grey";
             } else {
-                box.style.backgroundColor = "white";
+                box.style.backgroundColor = "transparent";
             }
         }
     }

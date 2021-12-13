@@ -10,14 +10,16 @@ function game(player, com){
         for (let j = 0; j < row.childNodes.length; j++){
             let box = row.childNodes[j];
             if (!com.gameboard.board[i][j].isShot){
-                box.addEventListener("click", helper)
+                box.addEventListener("click", helper);
+                box.addEventListener("mouseover", () => { box.style.backgroundColor = "lightgrey"; })
+                box.addEventListener("mouseout", () => { box.style.backgroundColor = "transparent"; })
             }
 
             function helper(){
                 if (com.gameboard.board[i][j].hasShip !== ""){
                     box.style.backgroundColor = "lightgreen";
                 } else {
-                    box.style.backgroundColor = "red";
+                    box.style.backgroundColor = "rgb(255, 25, 25)";
                 }
                 const allSunk = com.gameboard.receiveAttack([i, j]);
                 darkenComColor();
@@ -25,7 +27,7 @@ function game(player, com){
                     message.textContent = "You won! All enemy ships sunk.";
                     gameEnd();
                 }
-                box.removeEventListener("click", helper);
+                box.outerHTML = box.outerHTML;
                 comAttack();
             }
         }
@@ -41,7 +43,7 @@ function game(player, com){
             if (player.gameboard.board[x][y].hasShip !== ""){
                 left.childNodes[x].childNodes[y].style.backgroundColor = "lightgreen";
             } else {
-                left.childNodes[x].childNodes[y].style.backgroundColor = "red";
+                left.childNodes[x].childNodes[y].style.backgroundColor = "rgb(255, 25, 25)";
             }
             darkenPlayerColor();
             if (playerLost){

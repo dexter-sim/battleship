@@ -13,11 +13,11 @@ main.appendChild(gametitle);
 
 const headers = document.createElement("headers");
 headers.id = "headers";
-const leftText = document.createElement("div");
-leftText.textContent = "Player";
+const leftText = document.createElement("p");
+leftText.textContent = "Your Board";
 headers.appendChild(leftText);
-const rightText = document.createElement("div");
-rightText.textContent = "Enemy";
+const rightText = document.createElement("p");
+rightText.textContent = "Enemy's Board";
 headers.appendChild(rightText);
 main.appendChild(headers);
 
@@ -31,39 +31,51 @@ randomizeButton.id = "randomize";
 randomizeButton.className = "randomize";
 randomizeButton.textContent = "Randomize";
 randomizeButton.addEventListener("click", () => {
-    play.style.display = "inline";
+    play.disabled = false;
+    play.style.cursor = "pointer";
     autoSetup();
 });
 main.appendChild(randomizeButton);
+
+const play = document.createElement("button");
+play.id = "play";
+play.className = "play";
+play.textContent = "Play";
+play.disabled = true;
+play.style.cursor = "not-allowed";
+main.appendChild(play);
+play.addEventListener("click", () => {
+    play.style.cursor = "not-allowed";
+    play.disabled = true;
+    randomizeButton.style.cursor = "not-allowed";
+    randomizeButton.disabled = true;
+    game(player, com);
+});
 
 const resetButton = document.createElement("button");
 resetButton.id = "reset";
 resetButton.className = "reset";
 resetButton.textContent = "Reset";
 resetButton.addEventListener("click", () => {
-    play.style.display = "none";
-    randomizeButton.style.display = "inline";
+    play.style.cursor = "not-allowed";
+    play.disabled = true;
+    randomizeButton.style.cursor = "pointer";
+    randomizeButton.disabled = false;
     manualSetup();
 });
 main.appendChild(resetButton);
-
-const play = document.createElement("button");
-play.id = "play";
-play.className = "play";
-play.textContent = "Play";
-play.style.display = "none";
-main.appendChild(play);
-play.addEventListener("click", () => {
-    play.style.display = "none";
-    randomizeButton.style.display = "none";
-    game(player, com);
-});
 
 const message = document.createElement("p");
 message.id = "message";
 message.className = "message";
 message.textContent = "temp";
 main.appendChild(message);
+
+const info = document.createElement("p");
+info.id = "info";
+info.className = "message";
+info.textContent = "Ship Piece [Size] : Carrier [5] | Battleship [4] | Destroyer [3] | Submarine [3] | Patrol Boat [2]";
+main.appendChild(info);
 
 const left = document.createElement("div");
 left.className = "left"; 
@@ -84,19 +96,19 @@ function autoSetup() {
     com = new Player();
 
     generateBoard();
-    playerSetup(player, left);
-    playerSetup(com, right);
+    playerSetup(player);
+    playerSetup(com);
     displayBoard(player);
 }
 
 function manualSetup() {
-    message.textContent = "Place Your Battleships. Right click to rotate ship.";
+    message.textContent = "Place Your Battleships or Randomize. Right click in your grid to rotate ship.";
     player = new Player();
     com = new Player();
 
     generateBoard();
     manual(player);
-    playerSetup(com, right);
+    playerSetup(com);
     displayBoard(player);
 }
 

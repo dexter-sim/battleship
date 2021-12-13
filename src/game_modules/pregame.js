@@ -1,7 +1,4 @@
-import { Ship } from "./factory";
-
 function playerSetup(player, left) {
-    console.log(left.childNodes[3]);
     const playerBoard = player.gameboard;
     playerBoard.allShips = [];
     const arr = [2, 3, 3, 4, 5];
@@ -11,7 +8,6 @@ function playerSetup(player, left) {
         const horizontal = temp[1];
         playerBoard.placeShip(arr[i], coordinate, horizontal);
     }
-    console.log(playerBoard);
 
     function generateCoordinates(len){
         let x = Math.floor(Math.random() * 10);
